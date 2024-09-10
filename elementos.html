@@ -1,0 +1,464 @@
+<html lang="pt-BR"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cientistas</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+      body {
+          margin: 0;
+          font-family: Arial, sans-serif;
+          transition: background-color 0.3s, color 0.3s;
+          background-color: #ffffff;
+          color: #000000;
+      }
+      header {
+          background-color: #6cb2e0;
+          color: rgba(255, 255, 255, 0.562);
+          padding: 10px 20px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+      }
+      .logo {
+          font-size: 24px;
+          font-weight: bold;
+          display: flex;
+          align-items: center;
+      }
+      .logo a {
+          color: inherit;
+          text-decoration: none;
+      }
+      .logo i {
+          font-size: 30px;
+          margin-right: 10px;
+      }
+      nav a {
+          color: white;
+          text-decoration: none;
+          margin: 0 10px;
+          font-size: 18px;
+      }
+      nav a:hover {
+          text-decoration: underline;
+      }
+      .search-and-filter {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          gap: 10px;
+          margin-bottom: 20px;
+      }
+      .search-box {
+          width: 300px;
+          padding: 8px;
+          border-radius: 4px;
+          border: 1px solid #333;
+          font-size: 16px;
+      }
+      .filter-buttons {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 5px;
+      }
+      .filter-buttons button {
+          padding: 6px 10px;
+          border: 1px solid;
+          border-radius: 4px;
+          color: white;
+          font-size: 14px;
+          cursor: pointer;
+          outline: none;
+          transition: background-color 0.3s, border-color 0.3s;
+      }
+      /* Cores dos botões */
+      .filter-buttons button[data-letter="A"] { background-color: #000000; }
+      .filter-buttons button[data-letter="B"] { background-color: #05183c; }
+      .filter-buttons button[data-letter="C"] { background-color: #0c1025; }
+      .filter-buttons button[data-letter="D"] { background-color: #081634; }
+      .filter-buttons button[data-letter="E"] { background-color: #16244a92; }
+      .filter-buttons button[data-letter="F"] { background-color: #333d66; }
+      .filter-buttons button[data-letter="G"] { background-color: #505984; }
+      .filter-buttons button[data-letter="H"] { background-color: #6e76a3; }
+      .filter-buttons button[data-letter="I"] { background-color: #000000; }
+      .filter-buttons button[data-letter="J"] { background-color: #05183c; }
+      .filter-buttons button[data-letter="K"] { background-color: #0c1025; }
+      .filter-buttons button[data-letter="L"] { background-color: #081634; }
+      .filter-buttons button[data-letter="M"] { background-color: #16244a92; }
+      .filter-buttons button[data-letter="N"] { background-color: #333d66; }
+      .filter-buttons button[data-letter="O"] { background-color: #505984; }
+      .filter-buttons button[data-letter="P"] { background-color: #009688; }
+      .filter-buttons button[data-letter="Q"] { background-color: #00bcd4; }
+      .filter-buttons button[data-letter="R"] { background-color: #03a9f4; }
+      .filter-buttons button[data-letter="S"] { background-color: #2196f3; }
+      .filter-buttons button[data-letter="T"] { background-color: #1976d2; }
+      .filter-buttons button[data-letter="U"] { background-color: #303f9f; }
+      .filter-buttons button[data-letter="V"] { background-color: #3f51b5; }
+      .filter-buttons button[data-letter="W"] { background-color: #673ab7; }
+      .filter-buttons button[data-letter="X"] { background-color: #512da8; }
+      .filter-buttons button[data-letter="Y"] { background-color: #7b1fa2; }
+      .filter-buttons button[data-letter="Z"] { background-color: #05183c; }
+      
+      .filter-buttons button:hover {
+          opacity: 0.8;
+      }
+      .light-mode .filter-buttons button {
+          border-color: #333;
+      }
+      .dark-mode .filter-buttons button {
+          border-color: #666;
+      }
+      .scientist-list {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 20px;
+      }
+      .scientist {
+          text-align: center;
+          width: 150px;
+      }
+      .scientist img {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 2px solid #333;
+      }
+      .scientist p {
+          margin: 10px 0 0;
+          font-size: 16px;
+      }
+      .mode-icon {
+          cursor: pointer;
+          font-size: 24px;
+          background: none;
+          border: none;
+          color: white;
+      }
+      .light-mode {
+          background-color: white;
+          color: black;
+      }
+      .light-mode header {
+          background-color: #333;
+          color: white;
+      }
+      .dark-mode {
+          background-color: #333;
+          color: white;
+      }
+      .dark-mode header {
+          background-color: black;
+          color: rgba(255, 255, 255, 0.562);
+      }
+  </style>
+</head>
+<body class="light-mode">
+
+<header>
+  <div class="logo">
+      <a href="index.html"><i class="fas fa-flask"></i> Voltar para Elementos Químicos</a>
+  </div>
+  <nav>
+      <a href="index.html">Início</a>
+      <a href="fale conosco.html">Fale Conosco</a>
+  </nav>
+  <button class="mode-icon" onclick="toggleMode()">🌙</button>
+</header>
+
+<div class="scientists">
+  <h2>Cientistas</h2>
+  <div class="search-and-filter">
+      <input type="text" id="search-box" class="search-box" placeholder="Buscar cientistas...">
+      <div class="filter-buttons">
+          <button type="button" class="btn" data-letter="A" onclick="filterByLetter('A')">A</button>
+          <button type="button" class="btn" data-letter="B" onclick="filterByLetter('B')">B</button>
+          <button type="button" class="btn" data-letter="C" onclick="filterByLetter('C')">C</button>
+          <button type="button" class="btn" data-letter="D" onclick="filterByLetter('D')">D</button>
+          <button type="button" class="btn" data-letter="E" onclick="filterByLetter('E')">E</button>
+          <button type="button" class="btn" data-letter="F" onclick="filterByLetter('F')">F</button>
+          <button type="button" class="btn" data-letter="G" onclick="filterByLetter('G')">G</button>
+          <button type="button" class="btn" data-letter="H" onclick="filterByLetter('H')">H</button>
+          <button type="button" class="btn" data-letter="I" onclick="filterByLetter('I')">I</button>
+          <button type="button" class="btn" data-letter="J" onclick="filterByLetter('J')">J</button>
+          <button type="button" class="btn" data-letter="K" onclick="filterByLetter('K')">K</button>
+          <button type="button" class="btn" data-letter="L" onclick="filterByLetter('L')">L</button>
+          <button type="button" class="btn" data-letter="M" onclick="filterByLetter('M')">M</button>
+          <button type="button" class="btn" data-letter="N" onclick="filterByLetter('N')">N</button>
+          <button type="button" class="btn" data-letter="O" onclick="filterByLetter('O')">O</button>
+          <button type="button" class="btn" data-letter="P" onclick="filterByLetter('P')">P</button>
+          <button type="button" class="btn" data-letter="Q" onclick="filterByLetter('Q')">Q</button>
+          <button type="button" class="btn" data-letter="R" onclick="filterByLetter('R')">R</button>
+          <button type="button" class="btn" data-letter="S" onclick="filterByLetter('S')">S</button>
+          <button type="button" class="btn" data-letter="T" onclick="filterByLetter('T')">T</button>
+          <button type="button" class="btn" data-letter="U" onclick="filterByLetter('U')">U</button>
+          <button type="button" class="btn" data-letter="V" onclick="filterByLetter('V')">V</button>
+          <button type="button" class="btn" data-letter="W" onclick="filterByLetter('W')">W</button>
+          <button type="button" class="btn" data-letter="X" onclick="filterByLetter('X')">X</button>
+          <button type="button" class="btn" data-letter="Y" onclick="filterByLetter('Y')">Y</button>
+          <button type="button" class="btn" data-letter="Z" onclick="filterByLetter('Z')">Z</button>
+      </div>
+  </div>
+  <div class="scientist-list" id="scientist-list"><div class="scientist">
+              <img src="Fotos/ada_lovelace.jpg" alt="Ada Lovelace">
+              <p>Ada Lovelace</p>
+          </div><div class="scientist">
+              <img src="Fotos/albert_einstein.jpg" alt="Albert Einstein">
+              <p>Albert Einstein</p>
+          </div><div class="scientist">
+              <img src="Fotos/barbara_mcclintock.jpg" alt="Barbara McClintock">
+              <p>Barbara McClintock</p>
+          </div><div class="scientist">
+              <img src="Fotos/blaise_pascal.jpg" alt="Blaise Pascal">
+              <p>Blaise Pascal</p>
+          </div><div class="scientist">
+              <img src="Fotos/carl_sagan.jpg" alt="Carl Sagan">
+              <p>Carl Sagan</p>
+          </div><div class="scientist">
+              <img src="Fotos/charles_darwin.jpg" alt="Charles Darwin">
+              <p>Charles Darwin</p>
+          </div><div class="scientist">
+              <img src="Fotos/david_attenborough.jpg" alt="David Attenborough">
+              <p>David Attenborough</p>
+          </div><div class="scientist">
+              <img src="Fotos/dmitri_mendeleev.jpg" alt="Dmitri Mendeleev">
+              <p>Dmitri Mendeleev</p>
+          </div><div class="scientist">
+              <img src="Fotos/eileen_collins.jpg" alt="Eileen Collins">
+              <p>Eileen Collins</p>
+          </div><div class="scientist">
+              <img src="Fotos/enrico_fermi.jpg" alt="Enrico Fermi">
+              <p>Enrico Fermi</p>
+          </div><div class="scientist">
+              <img src="Fotos/fermat_pierre_de.jpg" alt="Fermat Pierre de">
+              <p>Fermat Pierre de</p>
+          </div><div class="scientist">
+              <img src="Fotos/francis_crick.jpg" alt="Francis Crick">
+              <p>Francis Crick</p>
+          </div><div class="scientist">
+              <img src="Fotos/galileo_galilei.jpg" alt="Galileo Galilei">
+              <p>Galileo Galilei</p>
+          </div><div class="scientist">
+              <img src="Fotos/gerty_cori.jpg" alt="Gerty Cori">
+              <p>Gerty Cori</p>
+          </div><div class="scientist">
+              <img src="Fotos/hannah_arendt.jpg" alt="Hannah Arendt">
+              <p>Hannah Arendt</p>
+          </div><div class="scientist">
+              <img src="Fotos/hans_albrecht.jpg" alt="Hans Albrecht">
+              <p>Hans Albrecht</p>
+          </div><div class="scientist">
+              <img src="Fotos/isaac_newton.jpg" alt="Isaac Newton">
+              <p>Isaac Newton</p>
+          </div><div class="scientist">
+              <img src="Fotos/irene_joliot_curie.jpg" alt="Irène Joliot-Curie">
+              <p>Irène Joliot-Curie</p>
+          </div><div class="scientist">
+              <img src="Fotos/james_clerk_maxwell.jpg" alt="James Clerk Maxwell">
+              <p>James Clerk Maxwell</p>
+          </div><div class="scientist">
+              <img src="Fotos/jane_goodall.jpg" alt="Jane Goodall">
+              <p>Jane Goodall</p>
+          </div><div class="scientist">
+              <img src="Fotos/kurt_godel.jpg" alt="Kurt Gödel">
+              <p>Kurt Gödel</p>
+          </div><div class="scientist">
+              <img src="Fotos/katherine_johnson.jpg" alt="Katherine Johnson">
+              <p>Katherine Johnson</p>
+          </div><div class="scientist">
+              <img src="Fotos/leonhard_euler.jpg" alt="Leonhard Euler">
+              <p>Leonhard Euler</p>
+          </div><div class="scientist">
+              <img src="Fotos/lise_meitner.jpg" alt="Lise Meitner">
+              <p>Lise Meitner</p>
+          </div><div class="scientist">
+              <img src="Fotos/marie_curie.jpg" alt="Marie Curie">
+              <p>Marie Curie</p>
+          </div><div class="scientist">
+              <img src="Fotos/michael_faraday.jpg" alt="Michael Faraday">
+              <p>Michael Faraday</p>
+          </div><div class="scientist">
+              <img src="Fotos/niels_bohr.jpg" alt="Niels Bohr">
+              <p>Niels Bohr</p>
+          </div><div class="scientist">
+              <img src="Fotos/nina_simone.jpg" alt="Nina Simone">
+              <p>Nina Simone</p>
+          </div><div class="scientist">
+              <img src="Fotos/oscar_wilde.jpg" alt="Oscar Wilde">
+              <p>Oscar Wilde</p>
+          </div><div class="scientist">
+              <img src="Fotos/olga_ladyzhenskaya.jpg" alt="Olga Ladyzhenskaya">
+              <p>Olga Ladyzhenskaya</p>
+          </div><div class="scientist">
+              <img src="Fotos/pablo_picasso.jpg" alt="Pablo Picasso">
+              <p>Pablo Picasso</p>
+          </div><div class="scientist">
+              <img src="Fotos/rosalind_franklin.jpg" alt="Rosalind Franklin">
+              <p>Rosalind Franklin</p>
+          </div><div class="scientist">
+              <img src="Fotos/richard_feynman.jpg" alt="Richard Feynman">
+              <p>Richard Feynman</p>
+          </div><div class="scientist">
+              <img src="Fotos/stephen_hawking.jpg" alt="Stephen Hawking">
+              <p>Stephen Hawking</p>
+          </div><div class="scientist">
+              <img src="Fotos/srinivasa_ramanujan.jpg" alt="Srinivasa Rama">
+              <p>Srinivasa Rama</p>
+          </div><div class="scientist">
+              <img src="Fotos/turing_alan.jpg" alt="Turing Alan">
+              <p>Turing Alan</p>
+          </div><div class="scientist">
+              <img src="Fotos/thomas_edison.jpg" alt="Thomas Edison">
+              <p>Thomas Edison</p>
+          </div><div class="scientist">
+              <img src="Fotos/ursula_franklin.jpg" alt="Ursula Franklin">
+              <p>Ursula Franklin</p>
+          </div><div class="scientist">
+              <img src="Fotos/upton_sinclair.jpg" alt="Upton Sinclair">
+              <p>Upton Sinclair</p>
+          </div><div class="scientist">
+              <img src="Fotos/vera_rubin.jpg" alt="Vera Rubin">
+              <p>Vera Rubin</p>
+          </div><div class="scientist">
+              <img src="Fotos/vladimir_lenin.jpg" alt="Vladimir Lenin">
+              <p>Vladimir Lenin</p>
+          </div><div class="scientist">
+              <img src="Fotos/walt_disney.jpg" alt="Walt Disney">
+              <p>Walt Disney</p>
+          </div><div class="scientist">
+              <img src="Fotos/willem_de_kooning.jpg" alt="Willem de kooning">
+              <p>Willem de kooning</p>
+          </div><div class="scientist">
+              <img src="Fotos/xander_bogaerts.jpg" alt="Xander Bogaerts">
+              <p>Xander Bogaerts</p>
+          </div><div class="scientist">
+              <img src="Fotos/yoko_ono.jpg" alt="Yoko ono">
+              <p>Yoko ono</p>
+          </div><div class="scientist">
+              <img src="Fotos/yuri_gagarin.jpg" alt="Yuri Gagarin">
+              <p>Yuri Gagarin</p>
+          </div><div class="scientist">
+              <img src="Fotos/zaha_hadid.jpg" alt="Zaha Hadid">
+              <p>Zaha Hadid</p>
+          </div><div class="scientist">
+              <img src="Fotos/zora_neale_hurston.jpg" alt="Zora Neale">
+              <p>Zora Neale</p>
+          </div></div>
+</div>
+
+<script>
+  const scientists = [
+      { name: 'Ada Lovelace', letter: 'A', img: 'Fotos/ada_lovelace.jpg' },
+      { name: 'Albert Einstein', letter: 'A', img: 'Fotos/albert_einstein.jpg' },
+      { name: 'Barbara McClintock', letter: 'B', img: 'Fotos/barbara_mcclintock.jpg' },
+      { name: 'Blaise Pascal', letter: 'B', img: 'Fotos/blaise_pascal.jpg' },
+      { name: 'Carl Sagan', letter: 'C', img: 'Fotos/carl_sagan.jpg' },
+      { name: 'Charles Darwin', letter: 'C', img: 'Fotos/charles_darwin.jpg' },
+      { name: 'David Attenborough', letter: 'D', img: 'Fotos/david_attenborough.jpg' },
+      { name: 'Dmitri Mendeleev', letter: 'D', img: 'Fotos/dmitri_mendeleev.jpg' },
+      { name: 'Eileen Collins', letter: 'E', img: 'Fotos/eileen_collins.jpg' },
+      { name: 'Enrico Fermi', letter: 'E', img: 'Fotos/enrico_fermi.jpg' },
+      { name: 'Fermat Pierre de', letter: 'F', img: 'Fotos/fermat_pierre_de.jpg' },
+      { name: 'Francis Crick', letter: 'F', img: 'Fotos/francis_crick.jpg' },
+      { name: 'Galileo Galilei', letter: 'G', img: 'Fotos/galileo_galilei.jpg' },
+      { name: 'Gerty Cori', letter: 'G', img: 'Fotos/gerty_cori.jpg' },
+      { name: 'Hannah Arendt', letter: 'H', img: 'Fotos/hannah_arendt.jpg' },
+      { name: 'Hans Albrecht', letter: 'H', img: 'Fotos/hans_albrecht.jpg' },
+      { name: 'Isaac Newton', letter: 'I', img: 'Fotos/isaac_newton.jpg' },
+      { name: 'Irène Joliot-Curie', letter: 'I', img: 'Fotos/irene_joliot_curie.jpg' },
+      { name: 'James Clerk Maxwell', letter: 'J', img: 'Fotos/james_clerk_maxwell.jpg' },
+      { name: 'Jane Goodall', letter: 'J', img: 'Fotos/jane_goodall.jpg' },
+      { name: 'Kurt Gödel', letter: 'K', img: 'Fotos/kurt_godel.jpg' },
+      { name: 'Katherine Johnson', letter: 'K', img: 'Fotos/katherine_johnson.jpg' },
+      { name: 'Leonhard Euler', letter: 'L', img: 'Fotos/leonhard_euler.jpg' },
+      { name: 'Lise Meitner', letter: 'L', img: 'Fotos/lise_meitner.jpg' },
+      { name: 'Marie Curie', letter: 'M', img: 'Fotos/marie_curie.jpg' },
+      { name: 'Michael Faraday', letter: 'M', img: 'Fotos/michael_faraday.jpg' },
+      { name: 'Niels Bohr', letter: 'N', img: 'Fotos/niels_bohr.jpg' },
+      { name: 'Nina Simone', letter: 'N', img: 'Fotos/nina_simone.jpg' },
+      { name: 'Oscar Wilde', letter: 'O', img: 'Fotos/oscar_wilde.jpg' },
+      { name: 'Olga Ladyzhenskaya', letter: 'O', img: 'Fotos/olga_ladyzhenskaya.jpg' },
+      { name: 'Pablo Picasso', letter: 'P', img: 'Fotos/pablo_picasso.jpg' },
+      { name: 'Rosalind Franklin', letter: 'R', img: 'Fotos/rosalind_franklin.jpg' },
+      { name: 'Richard Feynman', letter: 'R', img: 'Fotos/richard_feynman.jpg' },
+      { name: 'Stephen Hawking', letter: 'S', img: 'Fotos/stephen_hawking.jpg' },
+      { name: 'Srinivasa Rama', letter: 'S', img: 'Fotos/srinivasa_ramanujan.jpg' },
+      { name: 'Turing Alan', letter: 'T', img: 'Fotos/turing_alan.jpg' },
+      { name: 'Thomas Edison', letter: 'T', img: 'Fotos/thomas_edison.jpg' },
+      { name: 'Ursula Franklin', letter: 'U', img: 'Fotos/ursula_franklin.jpg' },
+      { name: 'Upton Sinclair', letter: 'U', img: 'Fotos/upton_sinclair.jpg' },
+      { name: 'Vera Rubin', letter: 'V', img: 'Fotos/vera_rubin.jpg' },
+      { name: 'Vladimir Lenin', letter: 'V', img: 'Fotos/vladimir_lenin.jpg' },
+      { name: 'Walt Disney', letter: 'W', img: 'Fotos/walt_disney.jpg' },
+      { name: 'Willem de kooning', letter: 'W', img: 'Fotos/willem_de_kooning.jpg' },
+      { name: 'Xander Bogaerts', letter: 'X', img: 'Fotos/xander_bogaerts.jpg' },
+      { name: 'Yoko ono', letter: 'Y', img: 'Fotos/yoko_ono.jpg' },
+      { name: 'Yuri Gagarin', letter: 'Y', img: 'Fotos/yuri_gagarin.jpg' },
+      { name: 'Zaha Hadid', letter: 'Z', img: 'Fotos/zaha_hadid.jpg' },
+      { name: 'Zora Neale', letter: 'Z', img: 'Fotos/zora_neale_hurston.jpg' }
+  ];
+
+  const scientistListElement = document.getElementById('scientist-list');
+  const searchBox = document.getElementById('search-box');
+
+  function renderScientists(filteredScientists) {
+      scientistListElement.innerHTML = '';
+      filteredScientists.forEach(scientist => {
+          const scientistDiv = document.createElement('div');
+          scientistDiv.className = 'scientist';
+          scientistDiv.innerHTML = `
+              <img src="${scientist.img}" alt="${scientist.name}">
+              <p>${scientist.name}</p>
+          `;
+          scientistListElement.appendChild(scientistDiv);
+      });
+  }
+
+  function filterByLetter(letter) {
+      const filteredScientists = scientists.filter(scientist => scientist.letter === letter);
+      renderScientists(filteredScientists);
+  }
+
+  function filterBySearch(query) {
+      const filteredScientists = scientists.filter(scientist => scientist.name.toLowerCase().includes(query.toLowerCase()));
+      renderScientists(filteredScientists);
+  }
+  function filterBySearch(query) {
+  // Normalizar a string de busca
+  const normalizedQuery = query.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+
+  // Filtrar cientistas com base na string de busca normalizada
+  const filteredScientists = scientists.filter(scientist => {
+      const normalizedName = scientist.name.normalize('NFD').replace(/[\u0300-\u036f]/g, "").toLowerCase();
+      return normalizedName.includes(normalizedQuery);
+  });
+
+  renderScientists(filteredScientists);
+}
+
+  function toggleMode() {
+      const body = document.body;
+      const isLightMode = body.classList.contains('light-mode');
+      if (isLightMode) {
+          body.classList.remove('light-mode');
+          body.classList.add('dark-mode');
+          document.querySelector('.mode-icon').innerText = '🌞'; // Mudar o ícone para sol no modo escuro
+      } else {
+          body.classList.remove('dark-mode');
+          body.classList.add('light-mode');
+          document.querySelector('.mode-icon').innerText = '🌙'; // Mudar o ícone para lua no modo claro
+      }
+  }
+
+  searchBox.addEventListener('input', (event) => {
+      filterBySearch(event.target.value);
+  });
+
+  // Renderizar todos os cientistas ao carregar a página
+  renderScientists(scientists);
+</script>
+
+
+
+<div class="betternet-wrapper"></div></body></html>
